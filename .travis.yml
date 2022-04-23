@@ -1,8 +1,8 @@
-require: sudo
+sudo: require
 
 services:
   - docker
-before-install:
+before_install:
   - docker build -t tuanminh/client-test -f Dockerfile.dev ./client
 script:
   - docker run -e CI=true tuanminh/client-test npm run test -- --coverage
