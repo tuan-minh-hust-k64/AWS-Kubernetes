@@ -1,0 +1,19 @@
+require: sudo
+
+services:
+  - docker
+before-install:
+  - docker build -t tuanminh/client-test -f Dockerfile.dev ./client
+script:
+  - docker run -e CI=true tuanminh/client-test npm run test -- --coverage
+after_success:
+  - docker build -t tuanminh/mutil-client ./client
+  - docker build -t tuanminh/mutil-server ./server
+  - docker build -t tuanminh/mutil-nginx ./nginx
+  - docker build -t tuanminh/mutil-worker ./worker
+  # login to docker hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push tuanminh/mutil-client 
+  - docker push tuanminh/mutil-server 
+  - docker push tuanminh/mutil-nginx
+  - docker push tuanminh/mutil-worker 
