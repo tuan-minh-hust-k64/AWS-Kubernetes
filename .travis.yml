@@ -17,3 +17,14 @@ after_success:
   - docker push tuanminh009/mutil-server 
   - docker push tuanminh009/mutil-nginx
   - docker push tuanminh009/mutil-worker 
+deploy:
+  provider: elasticbeanstalk
+  app: mutil-docker
+  region: us-east-1
+  env:  Mutildocker-env
+  bucket_path: mutil-docker
+  bucket: elasticbeanstalk-us-east-1-225317789430
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
