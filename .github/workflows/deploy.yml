@@ -28,11 +28,5 @@ jobs:
           ECR_REPOSITORY: mutil-docker
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t $ECR_REGISTRY/client:$IMAGE_TAG ./client
-          docker build -t $ECR_REGISTRY/server:$IMAGE_TAG ./server
-          docker build -t $ECR_REGISTRY/worker:$IMAGE_TAG ./worker
-          docker build -t $ECR_REGISTRY/nginx:$IMAGE_TAG ./nginx
-          docker push $ECR_REGISTRY/client:$IMAGE_TAG
-          docker push $ECR_REGISTRY/server:$IMAGE_TAG
-          docker push $ECR_REGISTRY/worker:$IMAGE_TAG
-          docker push $ECR_REGISTRY/nginx:$IMAGE_TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./client
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
